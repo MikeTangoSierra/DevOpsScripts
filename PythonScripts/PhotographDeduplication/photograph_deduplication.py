@@ -6,31 +6,42 @@ parser = argparse.ArgumentParser()
 
 # Configure Arguments Passed to the Script
 parser.add_argument("-s", "--single_directory", help="Search for duplicates in a single directory, options are true or false")
-parser.add_argument("-m", "--multiple_directories", help="Search for duplicates in multiple directories, options are true or false")
-parser.add_argument("-d", "--delete", help="Delete duplicates, options are true or false")
-parser.add_argument("-c", "--copy", help="Copy duplicates into another directory, options are true or false")
-parser.add_argument("-f", "--destination_folder", help="Destination folder for copied duplicates, pass in if copy mode is selected")
+parser.add_argument("-d", "--multiple_directories", help="Search for duplicates in multiple directories, options are true or false")
+parser.add_argument("-m", "--mode", help="Delete duplicates, options are delete or copy")
 
 # Work with the Arguments Passed to the Script
 args = parser.parse_args()
 
-if args.single_directory == "true" and args.multiple_direct == "false":
+# Check that the user has specified a search option and take some input from the user.
+if args.single_directory == "true":
     print("Searching for duplicates in a single directory")
     source_directory_path = input("Enter the path to the directory to search for duplicates: ")
-elif args.multiple_direct == "true" and args.single_directory == "false":
+elif args.multiple_directories == "true":
     print("Searching for duplicates in multiple directories")
     source_directory_paths = input("Enter multiple directory paths to search for duplicates, separated with commas: ")
     final_source_directory_paths = source_directory_paths.split(",")
-else:
+elif args.single_directory == "false" and args.multiple_directories == "false":
     print("Please specify a search option")
     exit()
+elif args.delete == "true" and args.copy == "true":
+    print("Please specify only one deduplication mode")
+    exit()
 
-if args.delete == "true":
+if args.mode == "delete":
     print("Deleting duplicates")
-    deduplication_mode = "delete"
-elif args.copy == "true":
+    do_delete = input("Are you sure that you want to continue? Y/N: ")
+    if do_delete == "Y":
+        deduplication_mode = "delete"
+    else:
+        exit()
+elif args.mode == "copy":
     print("Copying duplicates into another directory")
-    deduplication_mode = "copy"
+    destination_folder = input("Enter the path to the destination directory: ")
+    do_copy = input("Are you sure that you want to continue? Y/N: ")
+    if do_copy == "Y":
+        deduplication_mode = "copy"
+    else:
+        exit()
 else:
     print("Please specify a deduplication mode")
     exit()
@@ -40,7 +51,7 @@ if args.single_directory == "true":
     if not os.path.exists(source_directory_path):
         print("The source directory does not exist")
         exit()
-elif args.multiple_direct == "true":
+elif args.multiple_directories == "true":
     for source_directory_path in final_source_directory_paths:
         if not os.path.exists(source_directory_path):
             print("The source directory does not exist")
@@ -48,7 +59,7 @@ elif args.multiple_direct == "true":
 
 # Check that the destination directory exists, if we are copying duplicates.
 if deduplication_mode == "copy":
-    if not os.path.exists(args.destination_folder):
+    if not os.path.exists(destination_folder):
         print("The destination directory does not exist")
         exit()
 
@@ -56,7 +67,7 @@ if deduplication_mode == "copy":
 if args.single_directory == "true":
     dif = difPy.build(source_directory_path)
     search = difPy.search(dif)
-elif args.multiple_direct == "true":
+elif args.multiple_directories == "true":
     dif = difPy.build(source_directory_paths)
     search = difPy.search(dif)
 
@@ -64,4 +75,4 @@ elif args.multiple_direct == "true":
 if deduplication_mode == "delete":
     search.delete(silent_del=False)
 elif deduplication_mode == "copy":
-    search.move_to(destination_path=args.destination_folder)
+    search.move_to(destination_path=destination_folder)
