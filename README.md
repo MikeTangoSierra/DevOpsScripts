@@ -9,6 +9,7 @@ A collection of useful scripts for DevOps Engineers, Infrastructure Engineers, D
   - Python scripts for AWS and other cloud services.
 - **ShellScripts**
   - Various shell scripts for day-to-day DevOps tasks.
+```
 
 ## Installation
 Clone the repository:
