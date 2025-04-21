@@ -28,4 +28,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 > "Automate everything. Because DevOps, like coffee, is better when it’s automated."
-```
