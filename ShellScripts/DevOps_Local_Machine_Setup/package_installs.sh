@@ -6,7 +6,7 @@
 # Before running this script, please check that the business whom you work for allow configuration of their machines in such a way.
 
 # Config
-packages_to_install=(helm awscli kubernetes-cli tfenv trufflehog tfswitch)
+packages_to_install=(docker helm awscli kubernetes-cli tfenv trufflehog tfswitch)
 
 # First up, let's install Homebrew if it's not already installed.
 if command -v brew &> /dev/null; then
