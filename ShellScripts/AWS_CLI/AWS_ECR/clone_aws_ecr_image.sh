@@ -1,15 +1,16 @@
 #!/bin/bash
-# This script copies a Container Images from a source AWS ECR repository in one AWS account, to a destination AWS ECR repository in another AWS account.
-# Whilst we can use AWS ECR replication rules to copy these Container Images from our source AWS account to our destination AWS account, it doesn't do this for Container Images that already in our source AWS account's AWS ECR repository/AWS ECR repositories.
+# This script copies a Docker Container Images from a source AWS ECR repository in one AWS account, to a destination AWS ECR repository in another AWS account.
+# Whilst we can use AWS ECR replication rules to copy these Docker Container Images from our source AWS account to our destination AWS account, it doesn't do this for Container Images that already in our source AWS account's AWS ECR repository/AWS ECR repositories.
 
 # Pre-requisites include;
-  # Having the AWS CLI installed to the machine you are running this script from.
+  # Having Docker installed to the machine that you are running this script from.
+  # Having the AWS CLI installed to the machine that you are running this script from.
   # Having your AWS CLI configured and two profiles setup, one for your source AWS account and one for your destination AWS account.
   # Having the AWS ECR repository created in source AWS account and destination AWS account.
-  # Having the Container Image/Container Images in your source AWS account's AWS ECR repository.
+  # Having the Docker Container Image/Docker Container Images in your source AWS account's AWS ECR repository.
 
 # Future Improvements for this script include;
-  # Doing the same process as this, but for Helm Charts as well as Container Images.
+  # Doing the same process as this, but for Helm Charts as well as Docker Container Images.
 
 set -euo pipefail
 
