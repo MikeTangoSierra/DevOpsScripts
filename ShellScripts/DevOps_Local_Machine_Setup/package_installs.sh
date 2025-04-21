@@ -46,3 +46,11 @@ if ! brew list --cask intellij-idea &> /dev/null; then
 else
   echo "IntelliJ IDEA Community Edition is already installed."
 fi
+
+# Install Python.
+if ! command -v python3 &>/dev/null; then
+  echo "Python 3 is not installed. Installing Python 3 using Homebrew..."
+  brew install python
+else
+  echo "Python 3 is already installed."
+fi
